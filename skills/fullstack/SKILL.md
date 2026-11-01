@@ -55,6 +55,26 @@ Tier tags in the references: **[Core]** baseline, **[Senior]** mid/senior expect
 
 If a task spans domains, read every row it touches. If no row fits, say so and fall back to the Doctrine.
 
+## Templates and checklists — copy, do not reinvent
+
+Copy from `templates/` instead of hand-rolling configs. Adapt names and paths; keep the security-relevant settings.
+
+| Need | Copy |
+|---|---|
+| Strict TypeScript | templates/tsconfig.strict.json |
+| Defensive installs | templates/npmrc, templates/pnpm-workspace.yaml, templates/renovate.json |
+| Hardened CI | templates/ci-github-actions.yml |
+| Env validation at boot | templates/env.ts |
+| RFC 9457 errors | templates/errors.ts |
+| Idempotency-Key handling | templates/idempotency.ts |
+| Webhook signature verification | templates/webhook-verify.ts |
+| Test setup | templates/vitest.config.ts, templates/playwright.config.ts, templates/msw-handlers.ts |
+| Stack scaffold | templates/stacks/<stack>.md: nextjs-fullstack, t3-style, ai-product, mern, enterprise-java, enterprise-dotnet, edge-first, content-astro, local-first, baas-rapid, monolith-first, python-ml-adjacent |
+
+Gates use `checklists/`: new-feature.md (PLAN/BUILD/VERIFY), pre-launch.md (before first production traffic), supply-chain-audit.md (dependency and CI posture).
+
+`evals/prompts.jsonl` holds 25 routing prompts for checking that this skill sends an agent to the right references.
+
 ## Workflow — PLAN, BUILD, VERIFY, SHIP
 
 **1. PLAN** — Gate: you can state, in five lines or fewer, the goal, the constraints, the chosen stack, and the riskiest assumption.
@@ -63,17 +83,18 @@ If a task spans domains, read every row it touches. If no row fits, say so and f
 - Name every decision rule you are applying (for example "Drizzle → edge or small bundles; Prisma → DX-first teams").
 
 **2. BUILD** — Gate: each slice compiles, passes its own tests, and is a small reviewable diff.
+- Scaffold from `templates/` (see above); never hand-roll security-relevant configs.
 - Work in vertical slices (one user-visible behavior at a time), not layers.
 - Prefer existing project conventions over the defaults here when they conflict and the project's choice is safe. State the deviation.
 - Read the installed version's docs for fast-moving libraries (Vercel AI SDK, Next.js, MCP SDKs) instead of writing APIs from memory.
 
 **3. VERIFY** — Gate: tests green, types green, lint green, budgets met, and every applicable Doctrine rule checked.
-- Run the tests you wrote and the existing suite. Run `tsc --noEmit`.
+- Walk `checklists/new-feature.md`. Run the tests you wrote and the existing suite. Run `tsc --noEmit`.
 - Check the security and a11y items that apply to the change. Check that no `[unverified]` claim leaked into code comments or docs as fact.
 - For UI work, look at it in a browser at mobile and desktop widths.
 
 **4. SHIP** — Gate: rollback path is known and observability is in place.
-- CI passes with pinned actions. Migrations are expand-and-contract and backward compatible.
+- `checklists/pre-launch.md` for first production traffic. CI passes with pinned actions. Migrations are expand-and-contract and backward compatible.
 - New risky behavior sits behind a feature flag. Errors and Web Vitals are reported. Document how to roll back.
 
 ## Flags — warn, do not silently comply

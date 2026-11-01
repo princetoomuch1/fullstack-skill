@@ -33,6 +33,33 @@ for (const f of refs) {
 const doctrine = (skill.match(/^\d+\. \*\*/gm) || []).length;
 if (doctrine !== 15) fail(`Doctrine has ${doctrine} rules (expected 15)`);
 
+// Phase 2 assets
+const tpl = join(skillDir, 'templates');
+for (const f of ['tsconfig.strict.json','npmrc','pnpm-workspace.yaml','renovate.json','ci-github-actions.yml','env.ts','errors.ts','idempotency.ts','webhook-verify.ts','vitest.config.ts','playwright.config.ts','msw-handlers.ts'])
+  if (!existsSync(join(tpl, f))) fail(`missing templates/${f}`);
+try { JSON.parse(readFileSync(join(tpl, 'tsconfig.strict.json'), 'utf8')); JSON.parse(readFileSync(join(tpl, 'renovate.json'), 'utf8')); }
+catch (e) { fail(`template JSON invalid: ${e.message}`); }
+const stacks = existsSync(join(tpl, 'stacks')) ? readdirSync(join(tpl, 'stacks')).filter((f) => f.endsWith('.md')) : [];
+if (stacks.length !== 12) fail(`templates/stacks has ${stacks.length} files (expected 12)`);
+for (const s of stacks) if (!skill.includes(s.replace('.md', ''))) fail(`SKILL.md does not list stack ${s}`);
+for (const f of ['new-feature.md','pre-launch.md','supply-chain-audit.md'])
+  if (!existsSync(join(skillDir, 'checklists', f))) fail(`missing checklists/${f}`);
+const ci = readFileSync(join(tpl, 'ci-github-actions.yml'), 'utf8');
+for (const m of ci.matchAll(/uses:\s*([^@\s]+)@(\S+)/g)) if (!/^[0-9a-f]{40}$/.test(m[2])) fail(`ci template: ${m[1]} not pinned by SHA`);
+
+const evalPath = join(skillDir, 'evals/prompts.jsonl');
+if (!existsSync(evalPath)) fail('missing evals/prompts.jsonl');
+else {
+  const rows = readFileSync(evalPath, 'utf8').trim().split('\n').map((l, i) => { try { return JSON.parse(l); } catch { fail(`evals line ${i + 1} is not valid JSON`); return {}; } });
+  if (rows.length !== 25) fail(`evals has ${rows.length} prompts (expected 25)`);
+  const ids = new Set();
+  for (const r of rows) {
+    if (!r.id || !r.prompt || !Array.isArray(r.expected_references) || !r.expected_references.length) fail(`eval ${r.id ?? '?'} missing fields`);
+    if (ids.has(r.id)) fail(`duplicate eval id ${r.id}`); ids.add(r.id);
+    for (const ref of r.expected_references ?? []) if (!refs.includes(ref)) fail(`eval ${r.id}: unknown reference ${ref}`);
+  }
+}
+
 for (const rel of ['README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'LICENSE-CODE', 'LICENSE-CONTENT'])
   if (!existsSync(join(root, rel))) fail(`missing ${rel}`);
 

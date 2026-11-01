@@ -1,0 +1,12 @@
+# pnpm 10+. Copy to the repo root.
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm 10 does not run dependency build scripts unless allowlisted. Keep this list tiny
+# and review every addition. Example entries: esbuild, sharp, @swc/core.
+onlyBuiltDependencies: []
+
+# Dependency cooldown: refuse versions published less than 7 days ago (value is minutes).
+# Requires a pnpm version that supports minimumReleaseAge; check `pnpm --version` release notes.
+minimumReleaseAge: 10080

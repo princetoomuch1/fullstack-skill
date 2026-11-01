@@ -45,6 +45,9 @@ All 15 rules, the router and the workflow: [`skills/fullstack/SKILL.md`](skills/
 | [`keywords/master-keyword-list.md`](keywords/master-keyword-list.md) | Copy-ready keyword list for resumes, job descriptions and ATS |
 | [`docs/full-reference-2026.md`](docs/full-reference-2026.md) | The complete source document with revision notes |
 | [`docs/MASTER_PROMPT.md`](docs/MASTER_PROMPT.md) | The build prompt for this repo, kept for reproducibility |
+| [`skills/fullstack/templates/`](skills/fullstack/templates/) | Copy-in configs and code: strict tsconfig, defensive `.npmrc`/pnpm/Renovate, hardened CI, env validation, RFC 9457 errors, idempotency, webhook verification, Vitest/Playwright/MSW setup, and 12 stack scaffolds |
+| [`skills/fullstack/checklists/`](skills/fullstack/checklists/) | new-feature, pre-launch, supply-chain-audit |
+| [`skills/fullstack/evals/`](skills/fullstack/evals/) | 25 routing prompts |
 | [`scripts/check-skill.mjs`](scripts/check-skill.mjs) | Validation: line budgets, routing coverage, citation resolution, doctrine count |
 
 ## Who it is for
@@ -56,15 +59,15 @@ All 15 rules, the router and the workflow: [`skills/fullstack/SKILL.md`](skills/
 
 ## Honest status
 
-This is `v2026.11.0`, the first release. Shipped: the skill, 12 references, the keyword list, the source document, the validation script. **Not yet shipped:** `templates/`, `checklists/`, `evals/`, the `fullstack-check` audit CLI, generated per-agent variants, diagrams. They are on the roadmap; nothing in this README claims otherwise.
+This is `v2026.11.1`. Shipped: the skill, 12 references, templates (the TypeScript templates are type-checked, and the idempotency and webhook helpers were exercised with runtime tests), 12 stack scaffolds (written as guides with start commands, not generated code), 3 checklists, 25 routing prompts, the keyword list, the source document, and the validation script. **Not yet shipped:** the `fullstack-check` audit CLI, an automated model-in-the-loop eval runner (the prompts are validated structurally and have not been scored against a model), generated per-agent variants, diagrams, and the demo GIF. Nothing in this README claims otherwise.
 
 ## Roadmap
 
-1. `templates/` (strict tsconfig, hardened CI workflow, `.npmrc`, env validation, RFC 9457 errors, webhook verification, test configs, one scaffold per stack in the table).
-2. `checklists/` (new-feature gates, pre-launch, supply-chain audit).
-3. `evals/prompts.jsonl` (25 routing prompts) run in CI.
-4. `npx fullstack-check`: a zero-dependency CLI that audits a repo against the doctrine.
-5. Generated variants: `AGENTS.md`, `CLAUDE.md`, Cursor rules, Copilot instructions.
+1. `npx fullstack-check`: a zero-dependency CLI that audits a repo against the doctrine.
+2. Eval runner that scores routing accuracy (target: at least 90% primary-reference hits) and publishes the result.
+3. Generated variants: `AGENTS.md`, `CLAUDE.md`, Cursor rules, Copilot instructions.
+4. Diagrams (state taxonomy, supply-chain attack flow, caching layers, sync-engine decision).
+5. Demo GIF: install, scaffold, pass the pre-launch checklist.
 6. Monthly dated releases tied to ecosystem changes (Next.js, Node LTS, MCP spec, CVEs).
 
 ## Contributing

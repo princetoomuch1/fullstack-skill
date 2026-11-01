@@ -1,0 +1,10 @@
+# Copy to .npmrc. Defensive install defaults (see references/security.md, "Software supply chain").
+# Lifecycle scripts are the delivery mechanism of the 2025-2026 npm worms.
+ignore-scripts=true
+# Exact versions, no ^ or ~ drift.
+save-exact=true
+# Refuse to install on an unsupported Node.
+engine-strict=true
+# Fail audits at high severity.
+audit-level=high
+# With npm, CI must use `npm ci`, never `npm install`.
