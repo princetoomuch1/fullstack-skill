@@ -1,0 +1,13 @@
+name: Outdated claim
+description: A claim in the references is no longer true.
+labels: ["outdated-claim"]
+body:
+  - type: input
+    attributes: {label: File and section, placeholder: "skills/fullstack/references/security.md - Software supply chain"}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: The claim as written}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: What is true now, description: Include a primary source URL and its date.}
+    validations: {required: true}

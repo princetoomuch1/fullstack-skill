@@ -1,0 +1,13 @@
+name: Correction
+description: Something is wrong (not just outdated).
+labels: ["correction"]
+body:
+  - type: input
+    attributes: {label: File and section}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: What is wrong}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Correct version and source URL}
+    validations: {required: true}

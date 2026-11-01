@@ -1,0 +1,15 @@
+name: New keyword or rule
+description: Propose something missing from the references.
+labels: ["new-keyword"]
+body:
+  - type: input
+    attributes: {label: Keyword or rule}
+    validations: {required: true}
+  - type: dropdown
+    attributes:
+      label: Proposed tier
+      options: ["[Core]", "[Senior]", "[Situational]"]
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Evidence, description: Adoption data, spec, release notes, or posting data with URLs.}
+    validations: {required: true}
