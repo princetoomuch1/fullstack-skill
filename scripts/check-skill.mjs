@@ -30,6 +30,18 @@ for (const f of refs) {
     if (!sourceIds.has(m[1])) fail(`${f}: citation [${m[1]}] not found in SOURCES.md`);
 }
 
+for (const d of readdirSync(join(root, 'skills'))) {
+  const sp = join(root, 'skills', d, 'SKILL.md');
+  if (!existsSync(sp)) { fail(`skills/${d} has no SKILL.md`); continue; }
+  const txt = readFileSync(sp, 'utf8');
+  const m = txt.match(/^---\n([\s\S]*?)\n---/);
+  if (!m) { fail(`skills/${d}/SKILL.md missing frontmatter`); continue; }
+  const nm = m[1].match(/^name:\s*(.+)$/m)?.[1]?.trim();
+  if (nm !== d) fail(`skills/${d}: frontmatter name "${nm}" does not match directory`);
+  if (!/^description:/m.test(m[1])) fail(`skills/${d}: missing description`);
+  if (txt.split('\n').length > 400) fail(`skills/${d}/SKILL.md exceeds 400 lines`);
+}
+
 const doctrine = (skill.match(/^\d+\. \*\*/gm) || []).length;
 if (doctrine !== 15) fail(`Doctrine has ${doctrine} rules (expected 15)`);
 
@@ -64,4 +76,4 @@ for (const rel of ['README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'LICENSE-CODE
   if (!existsSync(join(root, rel))) fail(`missing ${rel}`);
 
 if (errors.length) { console.error(errors.map((e) => `FAIL ${e}`).join('\n')); process.exit(1); }
-console.log(`OK: SKILL.md ${skillLines} lines, ${refs.length} references routed, ${sourceIds.size} sources, 15 doctrine rules`);
+console.log(`OK (${readdirSync(join(root, 'skills')).length} skills): fullstack SKILL.md ${skillLines} lines, ${refs.length} references routed, ${sourceIds.size} sources, 15 doctrine rules`);

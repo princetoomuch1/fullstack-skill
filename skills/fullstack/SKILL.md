@@ -46,6 +46,7 @@ Tier tags in the references: **[Core]** baseline, **[Senior]** mid/senior expect
 | Schema design, queries, migrations, indexes, Redis, ORM choice, vector search | references/database.md | references/backend.md |
 | REST/GraphQL/tRPC/OpenAPI, webhooks, Stripe, auth provider, CMS, third-party APIs | references/api-integration.md | references/security.md |
 | Live updates, chat, presence, streaming, offline, sync engines | references/realtime-sync.md | references/backend.md, references/ai-features.md (streaming) |
+| Distinctive visual design: landing pages, brand/design system, restyling, "make it look premium" | references/frontend.md | skills/interface-doctrine (sibling skill; if installed, load it for the visual layer) |
 | Write or fix tests, flaky tests, CI test setup, quality gates | references/testing.md | references/devops-deploy.md |
 | Auth, sessions, permissions, OWASP, dependency risk, supply chain, hardening | references/security.md | references/api-integration.md |
 | CI/CD, Docker, deploy target, IaC, feature flags, rollback | references/devops-deploy.md | references/security.md, references/observability.md |

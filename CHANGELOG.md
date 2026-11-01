@@ -2,6 +2,12 @@
 
 Date-based versions: `vYYYY.MM.N`. Each release is tied to ecosystem changes (framework majors, Node LTS, spec revisions, CVEs).
 
+## v2026.11.2 - 2026-11-01
+
+- Added `skills/interface-doctrine/SKILL.md`: UI design skill (six-pass workflow, anti-slop banned list, token system, motion recipes, variation engine, 12 combos, 100-point scoring gate).
+- `fullstack` router gains a row pointing visual-design tasks at it.
+- `scripts/check-skill.mjs` validates frontmatter, name-matches-directory and the 400-line budget for every skill.
+
 ## v2026.11.1 - 2026-11-01
 
 - `templates/`: strict tsconfig, `.npmrc`, pnpm workspace (build-script allowlist, release-age cooldown), Renovate config, hardened CI workflow, env validation, RFC 9457 helpers, Idempotency-Key middleware, webhook verification, Vitest/Playwright/MSW configs.

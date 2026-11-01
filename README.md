@@ -15,6 +15,13 @@ An installable skill pack that makes a coding agent plan, build, secure, test, a
 - **Dated and sourced.** Version-sensitive facts say "as of November 2026" and carry numbered sources. Claims we could not verify are tagged `[unverified — confirm source]` instead of being passed off as fact.
 - **Runs inside your agent.** A short `SKILL.md` (doctrine, router, workflow) loads first; the 12 reference files load only when the task touches that domain.
 
+## Skills in this repo
+
+| Skill | Use it for |
+|---|---|
+| [`fullstack`](skills/fullstack/SKILL.md) | Planning, building, securing, testing and shipping full-stack apps (doctrine, 12 references, templates, checklists) |
+| [`interface-doctrine`](skills/interface-doctrine/SKILL.md) | Designing distinctive, product-derived UI: six-pass workflow, token system, 12 combos, scoring gate. Pairs with `fullstack` for the visual layer |
+
 ## Install
 
 Skill (works with agents that support `SKILL.md` packages):
@@ -23,7 +30,7 @@ Skill (works with agents that support `SKILL.md` packages):
 npx skills add princetoomuch1/fullstack-skill
 ```
 
-Manual (any agent): copy `skills/fullstack/` into your agent's skills directory (for Claude Code: `.claude/skills/fullstack/`), or paste `skills/fullstack/SKILL.md` into your project's `AGENTS.md` / `CLAUDE.md` and keep `references/` next to it.
+Manual (any agent): copy `skills/fullstack/` (and optionally `skills/interface-doctrine/`) into your agent's skills directory (for Claude Code: `.claude/skills/fullstack/`), or paste `skills/fullstack/SKILL.md` into your project's `AGENTS.md` / `CLAUDE.md` and keep `references/` next to it.
 
 Generated variants for Cursor, Copilot and others are on the roadmap below.
 
@@ -59,7 +66,7 @@ All 15 rules, the router and the workflow: [`skills/fullstack/SKILL.md`](skills/
 
 ## Honest status
 
-This is `v2026.11.1`. Shipped: the skill, 12 references, templates (the TypeScript templates are type-checked, and the idempotency and webhook helpers were exercised with runtime tests), 12 stack scaffolds (written as guides with start commands, not generated code), 3 checklists, 25 routing prompts, the keyword list, the source document, and the validation script. **Not yet shipped:** the `fullstack-check` audit CLI, an automated model-in-the-loop eval runner (the prompts are validated structurally and have not been scored against a model), generated per-agent variants, diagrams, and the demo GIF. Nothing in this README claims otherwise.
+This is `v2026.11.2`. Shipped: the two skills, 12 references, templates (the TypeScript templates are type-checked, and the idempotency and webhook helpers were exercised with runtime tests), 12 stack scaffolds (written as guides with start commands, not generated code), 3 checklists, 25 routing prompts, the keyword list, the source document, and the validation script. **Not yet shipped:** the `fullstack-check` audit CLI, an automated model-in-the-loop eval runner (the prompts are validated structurally and have not been scored against a model), generated per-agent variants, diagrams, and the demo GIF. Nothing in this README claims otherwise.
 
 ## Roadmap
 
